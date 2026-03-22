@@ -1,0 +1,60 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.VC.db
+*.VC.VC.opendb
+
+# Visual Studio Code
+.vscode/
+
+# Rider/IntelliJ
+.idea/
+
+# Build outputs
+[Bb]in/
+[Oo]bj/
+[Dd]ebug*/
+[Rr]elease*/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+
+# Test results
+TestResults/
+*.trx
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Tooling caches
+artifacts/
+.nuget/
+project.lock.json
+
+# Logs
+*.log
+
+# OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Node / TypeScript / Electron (if applicable)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+out/
+build/
+coverage/
+.env
+.env.*
