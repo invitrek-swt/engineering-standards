@@ -26,3 +26,27 @@
   - `docs/SRS_*.md` (requirements)
   - `docs/session/DECISIONS.md` (durable decisions)
   - `docs/session/TODO.md` (backlog)
+
+## Public API documentation rules (mandatory)
+- All public APIs shall be documented.
+- Public API docs shall describe:
+  - what the method/type does
+  - possible exceptions that can be thrown
+- Private IP/trade-secret implementation details (e.g., proprietary algorithms) shall be documented inline (implementation comments), not exposed as public API docs.
+
+## Source organization (mandatory)
+- Each C# type shall be defined in its own file.
+- One `.csproj` per layer shall be maintained.
+
+## Release-only packaging and documentation
+- XML documentation file generation and NuGet package generation shall be enabled only for `Release` configuration builds.
+
+## Naming conventions (mandatory)
+- `.csproj` name: `[Domain].[Layer]` (folder name may omit `[Domain]` and use only `[Layer]`, but the project file name shall include `[Domain]`).
+- Root namespace: `Invitrek.[Domain]`.
+- Assembly name: `Invitrek.[Domain].[Layer].[Provider]` (Provider optional).
+- NuGet package id: `Invitrek.[Domain].[Layer].[Provider]` (Provider optional).
+
+### Provider convention
+- `[Provider]` is optional.
+- Use `[Provider]` when a project implements a specific contract defined at the layer level.
