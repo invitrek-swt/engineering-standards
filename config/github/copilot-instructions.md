@@ -35,7 +35,7 @@
   - path to the strong-name key file used for strong-naming assemblies
   - shared MSBuild props/targets as needed
 - By default, new SDK-style `.csproj` files shall reference the shared `[Domain]AssemblyInfo` project.
-- Per-project assembly attributes generation shall be disabled in project templates so attributes come from the shared project.
+- Project templates shall disable only duplicate assembly metadata attributes that are centralized in the shared project (Company, Trademark, Copyright).
 
 ## Release-only packaging and documentation
 - XML documentation file generation and NuGet package generation shall be enabled only for `Release` configuration builds.
