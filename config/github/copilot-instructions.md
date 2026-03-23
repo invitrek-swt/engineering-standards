@@ -10,6 +10,46 @@
 - Database tables shall be singular and PascalCase.
 - Every project shall include tests with comprehensive coverage appropriate to scope.
 
+## Public API documentation rules (mandatory)
+- All public APIs shall be documented.
+- Public API docs shall describe:
+  - what the method/type does
+  - possible exceptions that can be thrown
+- Private IP/trade-secret implementation details (e.g., proprietary algorithms) shall be documented inline (implementation comments), not exposed as public API docs.
+
+## Source organization (mandatory)
+- Each C# type shall be defined in its own file.
+- One `.csproj` per layer shall be maintained.
+
+## Repository structure (mandatory)
+- Use Visual Studio 2026 solution format `.slnx`.
+- The `.slnx` file shall live at the repository root.
+- Create top-level folders:
+  - `src/` for all production projects
+  - `tests/` for corresponding test projects
+  - `Shared/` for organization-wide shared build metadata
+
+### Shared assembly metadata project
+- Under `Shared/`, maintain a shared project named `[Domain]AssemblyInfo` that contains:
+  - shared assembly attributes (Company, Trademark, Copyright)
+  - path to the strong-name key file used for strong-naming assemblies
+  - shared MSBuild props/targets as needed
+- By default, new SDK-style `.csproj` files shall reference the shared `[Domain]AssemblyInfo` project.
+- Per-project assembly attributes generation shall be disabled in project templates so attributes come from the shared project.
+
+## Release-only packaging and documentation
+- XML documentation file generation and NuGet package generation shall be enabled only for `Release` configuration builds.
+
+## Naming conventions (mandatory)
+- `.csproj` name: `[Domain].[Layer]` (folder name may omit `[Domain]` and use only `[Layer]`, but the project file name shall include `[Domain]`).
+- Root namespace: `Invitrek.[Domain]`.
+- Assembly name: `Invitrek.[Domain].[Layer].[Provider]` (Provider optional).
+- NuGet package id: `Invitrek.[Domain].[Layer].[Provider]` (Provider optional).
+
+### Provider convention
+- `[Provider]` is optional.
+- Use `[Provider]` when a project implements a specific contract defined at the layer level.
+
 ## Requirements-first (mandatory for new domain repos)
 - For every new domain-level repository/project, requirements and design docs (SRS) shall be created first.
 - SRS shall be updated as requirements evolve.
@@ -27,26 +67,5 @@
   - `docs/session/DECISIONS.md` (durable decisions)
   - `docs/session/TODO.md` (backlog)
 
-## Public API documentation rules (mandatory)
-- All public APIs shall be documented.
-- Public API docs shall describe:
-  - what the method/type does
-  - possible exceptions that can be thrown
-- Private IP/trade-secret implementation details (e.g., proprietary algorithms) shall be documented inline (implementation comments), not exposed as public API docs.
-
-## Source organization (mandatory)
-- Each C# type shall be defined in its own file.
-- One `.csproj` per layer shall be maintained.
-
-## Release-only packaging and documentation
-- XML documentation file generation and NuGet package generation shall be enabled only for `Release` configuration builds.
-
-## Naming conventions (mandatory)
-- `.csproj` name: `[Domain].[Layer]` (folder name may omit `[Domain]` and use only `[Layer]`, but the project file name shall include `[Domain]`).
-- Root namespace: `Invitrek.[Domain]`.
-- Assembly name: `Invitrek.[Domain].[Layer].[Provider]` (Provider optional).
-- NuGet package id: `Invitrek.[Domain].[Layer].[Provider]` (Provider optional).
-
-### Provider convention
-- `[Provider]` is optional.
-- Use `[Provider]` when a project implements a specific contract defined at the layer level.
+## Org-level standards alignment (required)
+- When organization-level standards or Copilot instructions are revised, update the canonical source in `Invitrek-swt/engineering-standards` (e.g., `config/github/copilot-instructions.md`) and propagate changes to repos using the C# SyncStandards tool.
