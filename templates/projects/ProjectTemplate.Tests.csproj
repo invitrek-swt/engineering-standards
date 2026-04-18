@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- ========================================
+       Target Frameworks (Test Both!)
+       ======================================== -->
+  <PropertyGroup>
+    <AssemblyName>ProjectTemplate.Tests</AssemblyName>
+    <TargetFrameworks>net48;net10.0</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <PackageId>ProjectTemplate.Tests</PackageId>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <GenerateAssemblyTrademarkAttribute>false</GenerateAssemblyTrademarkAttribute>
+  </PropertyGroup>
+  <!-- ========================================
+       Assembly Identity
+       ======================================== -->
+  <PropertyGroup>
+    <!-- Naming Pattern: <CompanyName>.<DomainName>.<ComponentName>.Tests -->
+    <AssemblyName>Invitrek.Foundation.YourComponent.Tests</AssemblyName>
+    <RootNamespace>Invitrek.Foundation.YourComponent.Tests</RootNamespace>
+  </PropertyGroup>
+  <!-- ========================================
+       Language and Compilation Settings
+       ======================================== -->
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <!-- CRITICAL: Nullable DISABLED for multi-targeting -->
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <!-- CRITICAL: Treat CS8632 as ERROR (required for multi-targeting) -->
+    <WarningsAsErrors>CS8632</WarningsAsErrors>
+    <!-- Suppress XML doc warnings in tests -->
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <!-- ========================================
+       Test Framework (xUnit)
+       ======================================== -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="FluentAssertions" Version="6.12.1" />
+  </ItemGroup>
+  <!-- ========================================
+       Project Under Test
+       ======================================== -->
+  <ItemGroup>
+    <!-- Reference the project being tested -->
+    <!-- <ProjectReference Include="..\YourComponent\YourComponent.csproj" /> -->
+  </ItemGroup>
+  <Import Project="..\..\..\src\Shared\SharedAssemblyInfo\SharedAssemblyInfo.projitems" Label="Shared" />
+</Project>

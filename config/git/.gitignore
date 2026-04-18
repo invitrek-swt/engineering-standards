@@ -1,0 +1,25 @@
+# Visual Studio / Visual Studio Code
+.vs/
+
+# GitHub Copilot local snapshots (Visual Studio)
+.vs/CopilotSnapshots/
+
+# Build outputs
+bin/
+obj/
+# Build outputs (explicit, any depth)
+**/bin/
+**/obj/
+
+# Compiled binaries
+*.dll
+*.pdb
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore Visual Studio workspace files
+.vs/**

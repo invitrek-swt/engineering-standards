@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Multi-targeting: .NET Framework 4.8 + .NET 10 -->
+    <TargetFrameworks>net48;net10.0</TargetFrameworks>
+    
+    <!-- Assembly Information -->
+    <AssemblyName>Invitrek.Foundation.YourComponent</AssemblyName>
+    <RootNamespace>Invitrek.Foundation.YourComponent</RootNamespace>
+    
+    <!-- CRITICAL: Disable ONLY attributes provided by SharedAssemblyInfo -->
+    <!-- SharedAssemblyInfo contains: Company, Copyright, Trademark, StrongNameKey -->
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <GenerateAssemblyTrademarkAttribute>false</GenerateAssemblyTrademarkAttribute>
+    
+    <!-- Keep other SDK-generated attributes (Version, FileVersion, etc.) -->
+    
+    <!-- Multi-targeting Compatibility (MANDATORY) -->
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <WarningsAsErrors>CS8632</WarningsAsErrors>
+    
+    <!-- Package Metadata -->
+    <Description>YourComponent library for Foundation framework. Supports .NET Framework 4.8 (Windows 7 SP1+) and .NET 10.</Description>
+    <PackageId>Invitrek.Foundation.YourComponent</PackageId>
+    <Authors>Invitrek</Authors>
+    <Company>Invitrek</Company>
+    <Product>Foundation Framework</Product>
+    <Copyright>Copyright © 2024 Invitrek</Copyright>
+    
+    <!-- XML Documentation (Release builds only) -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile Condition="'$(Configuration)'=='Release'">bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <!-- Project Dependencies -->
+  <ItemGroup>
+    <!-- Example: Reference Core library -->
+    <!-- <ProjectReference Include="..\Core\Core.csproj" /> -->
+  </ItemGroup>
+
+  <!-- NuGet Package References -->
+  <ItemGroup>
+    <!-- Add NuGet packages here -->
+    <!-- <PackageReference Include="Newtonsoft.Json" Version="13.0.3" /> -->
+  </ItemGroup>
+
+  <!-- CRITICAL: Import SharedAssemblyInfo for strong naming and shared attributes -->
+  <!-- Adjust relative path based on project location:
+       - src/Foundation/Library/Core/ → ..\..\..\Shared\SharedAssemblyInfo\SharedAssemblyInfo.projitems
+       - src/Foundation/DataAccess/ → ..\..\Shared\SharedAssemblyInfo\SharedAssemblyInfo.projitems
+       - src/DeveloperStudio/DevTools/ → ..\..\Shared\SharedAssemblyInfo\SharedAssemblyInfo.projitems
+  -->
+  <Import Project="..\..\Shared\SharedAssemblyInfo\SharedAssemblyInfo.projitems" Label="Shared" />
+</Project>
