@@ -136,6 +136,23 @@ Domain/Entities  →  Repository.Contracts  →  Repository
 
 Do not disable other assembly attributes globally.
 
+### 4.3 Shared project (`.shproj`) usage policy — obsolescence vs. justified
+
+Shared projects predate SDK-style multi-targeting. Apply the following discriminator when deciding whether a `.shproj` is still appropriate:
+
+| Scenario | Tool | Rationale |
+|---|---|---|
+| Same code, multiple TFMs, **single** assembly output | ❌ Shproj obsolete → ✅ SDK-style `<TargetFrameworks>` | Multi-targeting is a first-class csproj feature. Flatten the shproj content into the consuming SDK-style csproj. |
+| Same code compiled **into multiple distinct output assemblies** (each assembly needs its own copy baked in) | ✅ Shproj justified | No other mechanism stamps identical content into N separate assemblies. Examples: `[Domain]AssemblyInfo` (see §4.1), per-provider conditional compilation (see §7). |
+| Same code shared as a **dependency** (one implementation, many consumers) | ✅ Class library + `ProjectReference` / NuGet | Standard composition. |
+
+**Key discriminator:** does each consumer need the code *compiled into its own assembly* (shproj), or can it *reference* a separate assembly (class library)?
+
+**Mandatory actions on existing shprojs:**
+- Any shproj used purely for multi-TFM code sharing into a single assembly output **must be flattened** into the consuming SDK-style csproj; delete the empty `.shproj` + `.projitems` afterwards.
+- Shprojs used for stamping per-assembly attributes (`[Domain]AssemblyInfo`) or per-provider conditional compilation **must be retained**.
+- New code sharing scenarios default to class libraries; introduce a shproj only when the "multiple distinct output assemblies" criterion applies.
+
 ---
 
 ## 5. Cross-Target Compatibility
@@ -170,7 +187,7 @@ Do not disable other assembly attributes globally.
 
 When implementing multiple providers or adapters (database providers, service clients, message brokers, caching, logging):
 
-- Use a **shared project** (`*.shproj`) for common implementation code.
+- Use a **shared project** (`*.shproj`) for common implementation code — this is a justified shproj case under §4.3 because each provider produces a **distinct output assembly** (e.g., `Data.SqlServer.dll`, `Data.Oracle.dll`) from the same source with different conditional compilation flags.
 - Separate provider-specific references via conditioned `ItemGroup`.
 - Use provider conditional compilation flags (`#if SQLSERVER`, etc.) in the shared project.
 - Enable XML docs and NuGet packaging only in `Release` builds.

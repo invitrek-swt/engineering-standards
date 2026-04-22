@@ -125,6 +125,38 @@ using System.Reflection;
 
 ---
 
+## 5a. First-Time Domain Skeleton — `[Domain]AssemblyInfo` shproj
+
+Every new domain, on its **first-time creation**, must be scaffolded with a `[Domain]AssemblyInfo` shared project. This is a justified shared-project case per `architecture-guidelines.md` §4.3 because its content must be compiled **into each distinct domain assembly** (no class-library/package alternative achieves that).
+
+### 5a.1 Required scaffolding layout
+
+```
+src/<Domain>/
+└── Shared/
+    └── <Domain>AssemblyInfo/
+        ├── <Domain>AssemblyInfo.shproj
+        ├── <Domain>AssemblyInfo.projitems
+        └── SharedAssemblyInfo.cs   ← Company/Trademark/Copyright/SNK per §5
+```
+
+### 5a.2 Subsequent project addition
+
+- Every **newly added** project within the domain must `<Import>` `<Domain>AssemblyInfo.projitems` and disable the three auto-generated attributes (see §2 and `architecture-guidelines.md` §4.2).
+- Pure code-sharing scenarios within the domain must **not** introduce additional shprojs — use SDK-style `<TargetFrameworks>` multi-targeting instead (see `architecture-guidelines.md` §4.3).
+
+### 5a.3 VSIX add-in automation
+
+- The organization's VSIX add-in provides a **"New Domain Skeleton"** command that automates §5a.1:
+  - Creates the `src/<Domain>/Shared/<Domain>AssemblyInfo/` folder structure.
+  - Generates `<Domain>AssemblyInfo.shproj` + `.projitems` with correct GUIDs.
+  - Seeds `SharedAssemblyInfo.cs` from the §5 template with organization-default Company/Trademark/Copyright values.
+  - Registers the signing key path convention (`<relative-path-to-snk>`).
+- The add-in's **"Add Project to Domain"** command automatically wires `<Import Project="..\..\Shared\<Domain>AssemblyInfo\<Domain>AssemblyInfo.projitems" Label="Shared" />` into the new csproj, and sets the three `Generate*Attribute=false` properties.
+- The add-in **must reject** attempts to create a new `.shproj` that does not match the §4.3 justified-cases discriminator (prevents reintroduction of obsolete code-sharing shprojs).
+
+---
+
 ## 6. Reference Grouping Rule
 
 - Group `PackageReference` and `ProjectReference` by target framework when dependencies differ:
