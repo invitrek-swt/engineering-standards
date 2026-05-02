@@ -28,7 +28,7 @@ This repository defines mandatory organization-wide engineering standards for al
 
 ## Action Planning Workflow
 
-All contributors must follow the [Action Planning Workflow](docs/action-planning.md) before beginning any implementation task.
+All contributors must follow the [Action Planning Workflow](action-planning.md) before beginning any implementation task.
 
 This workflow ensures:
 - Context framing and scope definition
