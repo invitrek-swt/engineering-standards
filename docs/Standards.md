@@ -7,6 +7,7 @@ This repository defines mandatory organization-wide engineering standards for al
 | Document | Topic |
 |----------|-------|
 | [coding-standards.md](coding-standards.md) | C# style, SOLID, DRY, automation policy |
+| [action-planning.md](action-planning.md) | Action Planning Workflow |
 | [architecture-guidelines.md](architecture-guidelines.md) | Solution structure, layering, naming, DI |
 | [foundation-library-index.md](foundation-library-index.md) | Foundation package index, API samples, dependency map |
 | [api-guidelines.md](api-guidelines.md) | API-first, contracts, async, DataContract |
