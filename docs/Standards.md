@@ -25,6 +25,20 @@ This repository defines mandatory organization-wide engineering standards for al
 - `.gitignore` / `.gitattributes` — Git config
 - `.github/copilot-instructions.md` — Copilot/AI guidance
 
+## Action Planning Workflow
+
+All contributors must follow the [Action Planning Workflow](docs/action-planning.md) before beginning any implementation task.
+
+This workflow ensures:
+- Context framing and scope definition
+- Comprehensive feature discovery (core, extended, roadmap)
+- Drafting of execution steps, risks, and dependencies
+- Confirmation loop with stakeholders before execution
+- Implementation only after plan approval
+
+By adhering to this workflow, we reduce Q&A churn, minimize revisions, and align all MVPs with org-level standards.
+
+
 ## Sync
 
 This file and all standards are synced into domain repos via `SyncStandards`.  
