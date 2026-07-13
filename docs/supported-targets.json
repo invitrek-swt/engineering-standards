@@ -1,0 +1,15 @@
+{
+  "repository": "Invitrek.Foundation",
+  "supportedTargets": [
+    {
+      "tfm": "net48",
+      "symbol": "NET48",
+      "notes": "Legacy .NET Framework baseline"
+    },
+    {
+      "tfm": "net10.0",
+      "symbol": "NET10_0_OR_GREATER",
+      "notes": "Primary modern target; includes net10+ family"
+    }
+  ]
+}
