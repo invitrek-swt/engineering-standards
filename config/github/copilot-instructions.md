@@ -18,6 +18,30 @@ This document defines mandatory organization-wide standards for all repositories
   - `net10.0`
   (multi-target where applicable and technically feasible)
 
+### 1.3 Conditional Compilation Targets
+
+**ORGANIZATION-WIDE POLICY:** Conditional compilation must be aligned to the repository's supported target frameworks. The canonical supported-targets manifest lives under `engineering-standards/supported-targets.json` in the central standards repo. Domain repos should include a repo-specific `engineering-standards/supported-targets.json` that mirrors (or narrows) the central master copy.
+
+Master copy and repo sync
+------------------------
+- Master (central) manifest: `https://github.com/invitrek-swt/engineering-standards` (authoritative)
+- Per-repo manifest: `engineering-standards/supported-targets.json` (must be present in each repo)
+- Use `tools/SyncStandards/SyncStandards` to pull updates from the central master into domain repos. After pulling, the repo-level manifest becomes authoritative for generators in that repo.
+
+Guidance for authors and generators
+----------------------------------
+- Before adding #if/#elif branches, consult the repo-level `engineering-standards/supported-targets.json` to determine the permitted compilation symbols (e.g., NET48, NET10_0_OR_GREATER).
+- Generator templates and CodeModel outputs MUST read the repo manifest and emit only the symbols listed.
+- Prefer explicit symbol checks for each supported target. Avoid inventing ad-hoc symbols in shared code.
+- When the repo supports a superset of targets that include newer runtimes, prefer `NET10_0_OR_GREATER` style symbols for forward compatibility.
+
+Example flow
+------------
+1. Update central master supported-targets.json when org-level target policy changes.
+2. Run `tools/SyncStandards/SyncStandards --pull` in each domain repo (or use automated CI) to update per-repo manifests.
+3. Generators read the repo manifest and produce conditional code using the declared symbols.
+
+This approach allows the organization to evolve supported targets centrally while keeping per-repo control and ensuring generated code respects repo policies.
 ---
 
 ## 2. Core Engineering Principles
